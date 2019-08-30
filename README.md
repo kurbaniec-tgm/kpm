@@ -2,7 +2,7 @@
 
 **KPM** is a simple, web-based password manager. The backend is nearly completely written in Kotlin, the web-interface is based on JavaScript with jQuery.
 
-Why? I want to have access to my passwords all the time and be independent, I do not want to share my credentials to some else.
+Why? I want to have access to my passwords all the time and be independent, I do not want to share my credentials with someone else.
 
 ## Requirements
 

@@ -10,6 +10,10 @@ Why? I want to have access to my passwords all the time and be independent, I do
   *  Kotlin-Compiler (*tested with [kotlin-compiler-1.3.50][2]*)
   *  MongoDB-Database (*compatible with [driver 3.9][3]*)
 
+## Releases
+
+If you just want to run the password manager without source code, just grab the latest [release](https://github.com/kurbaniec-tgm/kpm/releases).
+
 ## Usage
 
 You can use the `kpm.py` python-script for easy building/running or doing it manually. `kpm.py` needs python 3 (*tested with [python 3.7][4]*), also `kotlinc` and  `java` need to be added to the system path.
@@ -49,7 +53,7 @@ Some aspects of the application can be configured in `res\config.toml`. Here are
 
 ## Useful info
 
-**KPM** uses cookies to identify user-sessions, so do not disable them in your browser. Also be aware that at the moment all data is stored in plain text in the MongoDB-database. So make sure to give your database a password and bind it only to `localhost`. 
+**KPM** uses cookies to identify user-sessions, so do not disable them in your browser. Also be aware that at the moment all data is stored in plain text in the MongoDB-database. So make sure to give your database a password and bind it only to `localhost`. 
 
 
 [1]: https://github.com/ojdkbuild/ojdkbuild

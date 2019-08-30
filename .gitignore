@@ -1,0 +1,5 @@
+.idea/
+*.jks
+out/
+run.jar
+.venv/

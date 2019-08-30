@@ -16,7 +16,6 @@ You can use the `kpm.py` python-script for easy building/running or doing it man
 
 * Compile project:    
   `python kpm.py build`   
-
   Or:   `kotlinc .\src\* -cp "[all jars from lib folder, all ending with ';']" -include-runtime -d run.jar `  
   
 * Run project:   
@@ -52,7 +51,6 @@ Some aspects of the application can be configured in `res\config.toml`. Here are
 
 **KPM** uses cookies to identify user-sessions, so do not disable them in your browser. Also be aware that at the moment all data is stored in plain text in the MongoDB-database. So make sure to give your database a password and bind it only to `localhost`. 
 
-## References
 
 [1]: https://github.com/ojdkbuild/ojdkbuild
 [2]: https://github.com/JetBrains/kotlin/releases/tag/v1.3.50

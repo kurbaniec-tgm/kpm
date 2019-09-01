@@ -1,4 +1,5 @@
 package pass.salt.loader
+import java.io.File
 import pass.salt.modules.SaltProcessor
 import pass.salt.container.Container
 import pass.salt.exceptions.ExceptionsTools
@@ -9,13 +10,10 @@ import java.lang.Exception
 import java.nio.file.Paths
 import java.util.jar.JarFile
 import java.util.logging.Logger
-import java.io.File
 
 
-
-val logger = Logger.getGlobal()
-
-class Loader() {
+class Loader {
+    val log = Logger.getLogger("SaltLogger")
     val config: Config
     val container: Container
     val singleModules = mutableListOf<SaltProcessor>()
@@ -36,10 +34,11 @@ class Loader() {
         val pair = getLocation()
         val pack = pair.first
         val location = pair.second
-        logger.fine("Project path located")
+        log.fine("Location of compiled classes to scan: " + location.absolutePath)
+        log.fine("Project path located")
 
         // Module System -> Single Instance
-        logger.fine("Loading module System (Single)")
+        log.fine("Loading module System (Single)")
         singleModules.add(SaltProcessor.module(module = "SaltSecurity", config = config, container = container))
         singleModules.add(SaltProcessor.module(module = "SaltThreadPool", config = config, container = container))
         singleModules.add(SaltProcessor.module(module = "PepperServer", config = config, container = container))
@@ -50,7 +49,7 @@ class Loader() {
 
         // Module System -> Process Annotations through all Classes
         // Order of modules is important!
-        logger.fine("Loading module System (Classes)")
+        log.fine("Loading module System (Classes)")
         classModules.add(SaltProcessor.module("ComponentScan", config, container))
         classModules.add(SaltProcessor.module("MongoScan", config, container))
         classModules.add(SaltProcessor.module("AutowiredScan", config, container))
@@ -62,7 +61,8 @@ class Loader() {
                 // TODO what do do with salt path?
                 if (it.toString().endsWith(".class") &&
                         !((it.toString().endsWith("Kt.class")) || it.toString().endsWith("$1.class") ||
-                                it.toString().contains("salt") || it.toString().contains("$"))) {
+                                it.toString().substring(location.absolutePath.length).contains("salt") ||
+                                it.toString().contains("$"))) {
 
                     val className = getClassName(it.toString(), pack)
 
@@ -73,6 +73,8 @@ class Loader() {
         }
         // Delete temporary files if created
         deleteDirectory(File("tmpout"))
+
+        log.fine("SaltApplication fully loaded")
         return this
     }
 
@@ -88,7 +90,8 @@ class Loader() {
     private fun getClassName(name: String, pack: String): String {
         var ret = name.replace(".class", "")
         ret = ret.substring(ret.indexOf(pack), ret.length)
-        ret = ret.replace("\\", ".")
+        ret = ret.replace("\\", ".") // Windows
+        ret = ret.replace("/", ".") // Linux
         //return ret.substring(ret.lastIndexOf('\\')+1, ret.length)
         return ret
     }
@@ -101,14 +104,14 @@ class Loader() {
             System.getProperty("user.dir")
         } else Paths.get(".").toAbsolutePath().normalize().toString()
 
-        logger.info("Application detected following program path: $path")
+        log.fine("Application detected following program path: $path")
 
-        if (File("$path\\run.jar").exists()) {
-            val jar = JarFile("$path\\run.jar")
+        if (File("$path/run.jar").exists()) {
+            val jar = JarFile("$path/run.jar")
             val tmpOut = File("tmpout")
             deleteDirectory(tmpOut)
             tmpOut.mkdir()
-            val outPath = "$path\\tmpout"
+            val outPath = "$path/tmpout"
             val entries = jar.entries()
             while (entries.hasMoreElements()) {
                 val entry = entries.nextElement()
@@ -138,13 +141,13 @@ class Loader() {
             }
         }
         else {
-            logger.info("No 'jar.run' found, using /out for file scan...")
+            log.info("No 'jar.run' found, using /out for file scan...")
             // TODO safety check
             val pack: String
             try {
                 pack = File("$path/src").list().get(0)!!
             } catch (ex: Exception) {
-                logger.warning(ExceptionsTools.exceptionToString(ex))
+                log.warning(ExceptionsTools.exceptionToString(ex))
                 throw MainPackageNotFoundException("Main package not found under /src/")
             }
             try {
@@ -155,7 +158,7 @@ class Loader() {
                     }
                 }
             } catch (ex: Exception) {
-                logger.warning(ExceptionsTools.exceptionToString(ex))
+                log.warning(ExceptionsTools.exceptionToString(ex))
                 throw MainPackageNotFoundException("No compiled classes found in /out/")
 
             }
@@ -163,7 +166,10 @@ class Loader() {
         }
     }
 
-    fun deleteDirectory(directory: File): Boolean {
+    /**
+     * Deletes a directory, if it exists.
+     */
+    private fun deleteDirectory(directory: File): Boolean {
         if (directory.exists()) {
             val files = directory.listFiles()
             if (null != files) {

@@ -1,12 +1,15 @@
 [server]
+# ip_address = "10.20.110.146"
 ip_address = "localhost"
-https_port = 8080
 
 [security]
 enable = true
-timeout = 15
-password_timeout = 5
-password_fails = 3
+timeout = 25
+
+#[keystore]
+#generate = false
+#file = "mycert.jks"
+#password = "password"
 
 [mongo]
 enable = true
@@ -14,4 +17,3 @@ uri = "mongodb://localhost:27017"
 db = "dev"
 UserRepo = "users"
 PasswordRepo = "store"
-

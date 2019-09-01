@@ -20,7 +20,7 @@ class SecTest: WebSecurityConfigurator {
 
     override fun configure(conf: WebSecurityConfig) {
         conf
-            .matchRequests("/css/login.css", "/favicon.ico", "/register").permitAll()
+            .matchRequests("/hello", "/css/login.css", "/favicon.ico", "/register").permitAll()
             .anyRequest().authenticated()
             .loginPath("/login")
             .logoutPath("/logout")

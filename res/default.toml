@@ -8,12 +8,14 @@ redirect = true
 redirect_protocol = "https"
 
 [threads]
-count = 4
+count = 6
 
 [logger]
-level = "info"
+level = "finest"
 
 [keystore]
+generate = true
+file = ""
 password = "passwd1234"
 
 [security]

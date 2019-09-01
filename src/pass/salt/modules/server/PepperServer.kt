@@ -21,6 +21,7 @@ import java.io.FileOutputStream
 import sun.security.x509.X500Name
 import sun.security.tools.keytool.CertAndKeyGen
 import java.security.cert.X509Certificate
+import java.util.logging.Logger
 import kotlin.reflect.KFunction
 
 
@@ -28,6 +29,7 @@ class PepperServer(
         val config: Config,
         val container: Container
 ): SaltProcessor {
+    val log = Logger.getLogger("SaltLogger")
     val mapping = mutableMapOf<String, Mapping>()
     lateinit var serverHttp: ServerMainThread<ServerSocket>
     lateinit var serverHttps: ServerMainThread<SSLServerSocket>
@@ -46,22 +48,32 @@ class PepperServer(
         }
         val executor = container.getElement("saltThreadPool") as SaltThreadPool
         if (config.findObjectAttribute("server", "http") as Boolean) {
+            log.fine("Starting http-port...")
             val port = config.findObjectAttribute("server", "http_port") as Int
             val socket = ServerSocket(port)
             serverHttp = ServerMainThread(executor, socket, mapping, config, security)
             container.addElement("serverMainThreadHttp", serverHttp)
             executor.submit(serverHttp)
+            log.fine("...done")
         }
         if (config.findObjectAttribute("server", "https") as Boolean) {
+            log.fine("Starting https-port...")
             val port = config.findObjectAttribute("server", "https_port") as Int
             val password = config.findObjectAttribute("keystore", "password") as String
-            SSLManager.createKeyStore(password)
-            val sslContext = SSLManager.createSSLContext(password)
+            val sslContext = if (config.findObjectAttribute("keystore", "generate")) {
+                SSLManager.createKeyStore(password)
+                SSLManager.createSSLContext(password, "res/test.jks")
+            }
+            else {
+                val file = config.findObjectAttribute<String>("keystore", "file")
+                SSLManager.createSSLContext(password, "res/$file")
+            }
             val sslServerSocketFactory = sslContext?.serverSocketFactory
             val socket = sslServerSocketFactory?.createServerSocket(port) as SSLServerSocket
             serverHttps = ServerMainThread(executor, socket, mapping, config, security)
             container.addElement("serverMainThreadHttps", serverHttps)
             executor.submit(serverHttps)
+            log.fine("...done")
         }
     }
 

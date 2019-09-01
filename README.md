@@ -45,6 +45,12 @@ Some aspects of the application can be configured in `res\config.toml`. Here are
 * `password_timeout`:  The timeout, in which a user can not log in, because he used a wrong password to often. In minutes.
 * `password_fails`: Sets the amount of bad authentication needed to trigger the login timeout.
 
+**[Keystore]**:
+
+* `generate`: Use `true` if you want to automatically create a certificate for the https-encryption. Be aware that this certificate is not signed by any authority and therefore not trusted by most browsers. If you have a valid certificate use `false` and fill the `file`-attribute.
+* `file`: If you have a TLS-certificate for your domain, convert it into a java-keystore (`.jks`-file) and put it into the `res` folder.  The `file`-attribute should be the name of this file.
+* `password`: The password the generated certificate should use or the password to your own keystore.
+
 **[Mongo]:**
 
 * `uri`: The connection description to your MongoDB-database in the "String URI Format". Click [here][5] for more information.

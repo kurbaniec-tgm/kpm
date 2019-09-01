@@ -41,11 +41,11 @@ class ServerWorkerThread<P: ServerSocket, S: Socket>(
     var listening = true
     var secOn = false
     var sec: SaltSecurity? = null
-    val log = Logger.getGlobal()
+    val log = Logger.getLogger("SaltLogger")
 
     init {
         val path = System.getProperty("user.dir")
-        WEB_ROOT = File(path, "res\\web")
+        WEB_ROOT = File(path, "res/web")
         if (security.first) {
             secOn = security.first
             sec = security.second
@@ -132,11 +132,11 @@ class ServerWorkerThread<P: ServerSocket, S: Socket>(
                     //val search = request.path+request.file
                     //val search = request.file
                     //val searchOr = request.file.replace("/", "\\")
-                    val fullSearch = request.file.replace("/", "\\")
-                    var directory = "\\"
+                    val fullSearch = request.file.replace("\\", "/")
+                    var directory = "/"
                     var search = fullSearch
-                    if (fullSearch.contains("\\")) {
-                        directory = fullSearch.substring(0, fullSearch.lastIndexOf("\\")+1)
+                    if (fullSearch.contains("/")) {
+                        directory = fullSearch.substring(0, fullSearch.lastIndexOf("/")+1)
                         search = fullSearch.substring(directory.length)
                     }
                     val type = "." + request.file.split(".")[1]
@@ -158,7 +158,9 @@ class ServerWorkerThread<P: ServerSocket, S: Socket>(
                                 "Server: SaltApplication",
                                 contentType, fileData.second, fileData.first)
                     }
-                    else fileNotFound()
+                    else {
+                        fileNotFound()
+                    }
                 // Normal mapping via controller
                 } else {
                     //mapping.model = Model() //
@@ -281,9 +283,10 @@ class ServerWorkerThread<P: ServerSocket, S: Socket>(
     @Throws(IOException::class)
     private fun readFileData(file: File, model: Model?): Pair<ByteArray, Int> {
         val bytes = if (getContentType(file) == "text/html" && file.name.endsWith(".html")) {
+            val lineSep = System.getProperty("line.separator")
             val raw = file.readText(Charsets.UTF_8)
             try {
-                val lines = raw.split("\r\n").toMutableList()
+                val lines = raw.split(lineSep).toMutableList()
                 val site: String
                 site = if (model != null) {
                     Webparse.parse(lines, model)

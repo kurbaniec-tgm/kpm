@@ -1,3 +1,3 @@
-[submodule "src/pass/salt"]
-	path = src/pass/salt
+[submodule "src/main/kotlin/pass/salt"]
+	path = src/main/kotlin/pass/salt
 	url = https://github.com/kurbaniec-tgm/salt.git

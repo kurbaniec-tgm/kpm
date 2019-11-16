@@ -7,7 +7,6 @@ Why? I want to have access to my passwords all the time and be independent, I do
 ## Requirements
 
   *  Java-JDK (*tested with [OpenJDK 1.8.0_211][1]*)
-  *  Kotlin-Compiler (*tested with [kotlin-compiler-1.3.50][2]*)
   *  MongoDB-Database (*compatible with [driver 3.9][3]*)
 
 ## Releases
@@ -19,12 +18,10 @@ If you just want to run the password manager without source code, just grab the 
 You can use the `kpm.py` python-script for easy building/running or doing it manually. `kpm.py` needs python 3 (*tested with [python 3.7][4]*), also `kotlinc` and  `java` need to be added to the system path.
 
 * Compile project:    
-  `python kpm.py build`   
-  Or:   `kotlinc .\src\* -cp "[all jars from lib folder, all ending with ';']" -include-runtime -d run.jar `  
+  `gradle build` 
   
 * Run project:   
-  `python kpm.py run`      
-  Or:  `java -cp "run.jar;[all jars from lib folder, all ending with ';']" pass.Main `
+  `gradle run`
 
 After starting, you should access the password manager on `https://localhost:8080`.
 

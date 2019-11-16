@@ -1,5 +1,5 @@
 package pass
-import pass.salt.SaltApplication
+import pass.salt.code.SaltApplication
 
 class Main {
     companion object {

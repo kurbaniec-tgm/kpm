@@ -1,7 +1,7 @@
 package pass.dev.db
 
-import pass.salt.annotations.MongoDB
-import pass.salt.modules.db.mongo.MongoRepo
+import pass.salt.code.annotations.MongoDB
+import pass.salt.code.modules.db.mongo.MongoRepo
 
 @MongoDB
 interface PasswordRepo: MongoRepo<Password, String> {

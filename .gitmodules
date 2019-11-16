@@ -1,0 +1,3 @@
+[submodule "src/pass/salt"]
+	path = src/pass/salt
+	url = https://github.com/kurbaniec-tgm/salt.git

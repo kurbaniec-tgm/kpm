@@ -4,12 +4,12 @@ import pass.dev.db.Password
 import pass.dev.db.PasswordRepo
 import pass.dev.db.User
 import pass.dev.db.UserRepo
-import pass.salt.annotations.*
-import pass.salt.annotations.Controller
-import pass.salt.modules.db.mongo.MongoRepo
-import pass.salt.modules.server.HTTPTransport
-import pass.salt.modules.server.security.SessionUser
-import pass.salt.modules.server.webparse.Model
+import pass.salt.code.annotations.*
+import pass.salt.code.annotations.Controller
+import pass.salt.code.modules.db.mongo.MongoRepo
+import pass.salt.code.modules.server.HTTPTransport
+import pass.salt.code.modules.server.security.SessionUser
+import pass.salt.code.modules.server.webparse.Model
 
 @Controller
 class Controller {

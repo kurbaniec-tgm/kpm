@@ -1,10 +1,10 @@
 package pass.dev.server
 
 import pass.dev.db.UserRepo
-import pass.salt.annotations.Autowired
-import pass.salt.annotations.WebSecurity
-import pass.salt.modules.server.security.WebSecurityConfig
-import pass.salt.modules.server.security.WebSecurityConfigurator
+import pass.salt.code.annotations.Autowired
+import pass.salt.code.annotations.WebSecurity
+import pass.salt.code.modules.server.security.WebSecurityConfig
+import pass.salt.code.modules.server.security.WebSecurityConfigurator
 
 @WebSecurity
 class SecTest: WebSecurityConfigurator {

@@ -15,8 +15,6 @@ If you just want to run the password manager without source code, just grab the 
 
 ## Usage
 
-You can use the `kpm.py` python-script for easy building/running or doing it manually. `kpm.py` needs python 3 (*tested with [python 3.7][4]*), also `kotlinc` and  `java` need to be added to the system path.
-
 * Compile project:    
   `gradle build` 
   
@@ -58,9 +56,13 @@ Some aspects of the application can be configured in `res\config.toml`. Here are
 
 **KPM** uses cookies to identify user-sessions, so do not disable them in your browser. Also be aware that at the moment all data is stored in plain text in the MongoDB-database. So make sure to give your database a password and bind it only to `localhost`. 
 
+## Sources
+
 
 [1]: https://github.com/ojdkbuild/ojdkbuild
 [2]: https://github.com/JetBrains/kotlin/releases/tag/v1.3.50
 [3]: https://mongodb.github.io/mongo-java-driver/3.9/
 [4]: https://www.python.org/downloads/release/python-370/
-[5]: https://docs.mongodb.com/v3.6/reference/connection-string/	"da"
+[5]: https://docs.mongodb.com/v3.6/reference/connection-string/
+[6]:  https://stackoverflow.com/questions/2586975/how-to-use-curl-in-java	"Curl in Java"
+[ 7 ]:  https://phauer.com/2018/best-practices-unit-testing-kotlin/  "Test Kotlin"

@@ -1,5 +1,6 @@
 package pass.dev.server
 
+import org.mindrot.jbcrypt.BCrypt
 import pass.dev.db.Password
 import pass.dev.db.PasswordRepo
 import pass.dev.db.User
@@ -47,7 +48,7 @@ class Controller {
                 val nameSpace = ('0'..'9').toList().toTypedArray()
                 val myid = (1..101).map { nameSpace.random() }.joinToString("")
                 if (userRepo.findByMyid(myid) == null) {
-                    userRepo.insert(User(myid, username, password))
+                    userRepo.insert(User(myid, username, BCrypt.hashpw(password, BCrypt.gensalt(12))))
                     setPassword = true
                 }
             } while (!setPassword)

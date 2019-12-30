@@ -1,5 +1,6 @@
 package pass.dev.server
 
+import org.mindrot.jbcrypt.BCrypt
 import pass.dev.db.UserRepo
 import pass.salt.code.annotations.Autowired
 import pass.salt.code.annotations.WebSecurity
@@ -13,9 +14,11 @@ class SecTest: WebSecurityConfigurator {
     lateinit var userRepo: UserRepo
 
     override fun authenticate(username: String, password: String): Boolean {
-        val result = userRepo.findByUsernameAndPassword(username, password)
-        return result != null
-        //return (username == "admin" && password == "admin")
+        //val result = userRepo.findByUsernameAndPassword(username, password)
+        val result = userRepo.findByUsername(username)
+        return if (result != null) {
+            BCrypt.checkpw(password, result.first().password)
+        } else false
     }
 
     override fun configure(conf: WebSecurityConfig) {

@@ -14,7 +14,6 @@ class SecTest: WebSecurityConfigurator {
     lateinit var userRepo: UserRepo
 
     override fun authenticate(username: String, password: String): Boolean {
-        //val result = userRepo.findByUsernameAndPassword(username, password)
         val result = userRepo.findByUsername(username)
         return if (result != null) {
             BCrypt.checkpw(password, result.first().password)

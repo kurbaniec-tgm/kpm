@@ -119,13 +119,14 @@ class Controller {
         val userCheck = userRepo.findByUsername(sessionUser.username)
         if (userCheck != null && userCheck.size == 1) {
             val userid = userCheck.first().myid
-            val user = userRepo.findByMyidAndUsernameAndPassword(userid, name, passwordOld)
+            val user = userRepo.findByMyidAndUsername(userid, name)
             return if (user != null && user.size == 1) {
+                val newHashedPassword = BCrypt.hashpw(passwordNew, BCrypt.gensalt(12))
                 userRepo.updateAll(
-                        MongoRepo.Equals(Pair("username", name), Pair("myid", userid), Pair("password", passwordOld)),
-                        MongoRepo.Set(Pair("password", passwordNew))
+                        MongoRepo.Equals(Pair("username", name), Pair("myid", userid), Pair("password", user.first().password)),
+                        MongoRepo.Set(Pair("password", newHashedPassword))
                 )
-                val lastCheck = userRepo.findByMyidAndUsernameAndPassword(userid, name, passwordNew)
+                val lastCheck = userRepo.findByMyidAndUsernameAndPassword(userid, name, newHashedPassword)
                 if (lastCheck != null) HTTPTransport().ok() else HTTPTransport().forbidden()
             } else HTTPTransport().failedDependecy()
         }

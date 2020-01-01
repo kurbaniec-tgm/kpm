@@ -12,7 +12,7 @@ Why? I want to have access to my passwords all the time and be independent, I do
 
 ## ⬇️ Requirements
 
-Java-JDK (*tested with [OpenJDK 1.8.0_211][https://github.com/ojdkbuild/ojdkbuild ]*)
+Java-JDK (*tested with [OpenJDK 1.8.0_211](https://github.com/ojdkbuild/ojdkbuild)*)
 
 ## 🛠️ Build
 
@@ -45,4 +45,4 @@ MIT
 ---
 
 > GitHub [kurbaniec](https://github.com/kurbaniec-tgm) &nbsp;&middot;&nbsp;
-> Mail [at.kacper.urbaniec@gmail.com](
+> Mail [at.kacper.urbaniec@gmail.com](mailto:at.kacper.urbaniec@gmail.com)

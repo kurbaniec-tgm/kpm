@@ -128,9 +128,9 @@ class Controller {
                 )
                 val lastCheck = userRepo.findByMyidAndUsernameAndPassword(userid, name, newHashedPassword)
                 if (lastCheck != null) HTTPTransport().ok() else HTTPTransport().forbidden()
-            } else HTTPTransport().failedDependecy()
+            } else HTTPTransport().failedDependency()
         }
-        return HTTPTransport().failedDependecy()
+        return HTTPTransport().failedDependency()
     }
 
     @Post("/deleteuser")

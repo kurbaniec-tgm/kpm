@@ -12,7 +12,7 @@ Why? I want to have access to my passwords all the time and be independent, I do
 
 ## ⬇️ Requirements
 
-Java-JDK (*tested with [OpenJDK 1.8.0_211][1]*)
+Java-JDK (*tested with [OpenJDK 1.8.0_211][https://github.com/ojdkbuild/ojdkbuild ]*)
 
 ## 🛠️ Build
 
@@ -30,7 +30,6 @@ After starting, you should access the password manager on `https://localhost:808
 
 ## Sources
 
-
 \[1]: https://github.com/ojdkbuild/ojdkbuild        
 \[2]: https://github.com/JetBrains/kotlin/releases/tag/v1.3.50         
 \[3]: https://mongodb.github.io/mongo-java-driver/3.9/       
@@ -38,3 +37,12 @@ After starting, you should access the password manager on `https://localhost:808
 \[5]: https://docs.mongodb.com/v3.6/reference/connection-string/       
 \[6]:  https://stackoverflow.com/questions/2586975/how-to-use-curl-in-java	"Curl in Java"        
 \[7]:  https://phauer.com/2018/best-practices-unit-testing-kotlin/  "Test Kotlin"      
+
+## License
+
+MIT
+
+---
+
+> GitHub [kurbaniec](https://github.com/kurbaniec-tgm) &nbsp;&middot;&nbsp;
+> Mail [at.kacper.urbaniec@gmail.com](
